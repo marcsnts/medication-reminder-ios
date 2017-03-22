@@ -1,0 +1,18 @@
+PODS:
+  - Alamofire (4.0.1)
+  - FSCalendar (2.7.4)
+  - SwiftyJSON (3.1.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0.1)
+  - FSCalendar (~> 2.7.4)
+  - SwiftyJSON (~> 3.1.1)
+
+SPEC CHECKSUMS:
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  FSCalendar: e95995a746acae531c4a7dd636b8393233125ec5
+  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
+
+PODFILE CHECKSUM: a55ba58923989f628a67f305fb0bf4763f9e4d5b
+
+COCOAPODS: 1.2.0
