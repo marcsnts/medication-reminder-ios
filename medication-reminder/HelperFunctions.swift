@@ -9,7 +9,7 @@
 import Foundation
 
 extension Date {
-    func isWithinFiveMinute(otherDate: Date) -> Bool {
+    func isWithinFiveMinutes(otherDate: Date) -> Bool {
         let fiveMins:Double = 60*5
         
         if self.addingTimeInterval(fiveMins) >= otherDate && self.addingTimeInterval(-1.00*fiveMins) <= otherDate {

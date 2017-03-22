@@ -95,12 +95,15 @@ class MedicationReminderViewController: UIViewController {
         }
     }
     
-    private func sortUpcomingMissedCompleted(atDate: CustomDate) {
+    func sortUpcomingMissedCompleted(atDate: CustomDate) {
         
-        let fiveMinutes: Double = 60*5
+        completedMedicationsArray = []
+        upcomingMedicationsArray = []
+        missedMedicationsArray = []
         
         guard let medicationsArray = medicationsDictionary[atDate] else {
             print("No medications found at \(atDate.toString())")
+            self.tableView.reloadData()
             return
         }
         
@@ -110,41 +113,24 @@ class MedicationReminderViewController: UIViewController {
                     completedMedicationsArray.append(medication)
                 }
                 else {
-                    
+                    if let time = medication.time {
+                        let now = Date()
+                        if time.isWithinFiveMinutes(otherDate:now) || time >= now {
+                            upcomingMedicationsArray.append(medication)
+                        }
+                        else {
+                            missedMedicationsArray.append(medication)
+                        }
+                    }
                 }
             }
         }
         
+        self.tableView.reloadData()
     
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 extension MedicationReminderViewController: FSCalendarDataSource, FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -157,8 +143,7 @@ extension MedicationReminderViewController: FSCalendarDataSource, FSCalendarDele
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("selected \(date)")
         let customDate = CustomDate(fromDate: date)
-        
-        
+        sortUpcomingMissedCompleted(atDate: customDate)
     }
     
 }
@@ -167,28 +152,34 @@ extension MedicationReminderViewController: UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
+            return upcomingMedicationsArray.count
+        }
+        else if section == 1 {
             return missedMedicationsArray.count
         }
-        return upcomingMedicationsArray.count
+        return completedMedicationsArray.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sectionTitles = ["Missed Medications", "Upcoming Medications"]
+        let sectionTitles = ["Upcoming Medications", "Missed Medications", "Taken Medications"]
         return sectionTitles[section]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MedicationCell", for: indexPath) as! MedicationTableViewCell
         
         if indexPath.section == 0 {
-            cell.setLabelText(text: "MISSED \(indexPath)")
+            cell.setLabelText(text: "UPCOMING \(upcomingMedicationsArray[indexPath.row].name!)")
+        }
+        else if indexPath.section == 1 {
+            cell.setLabelText(text: "MISSED \(missedMedicationsArray[indexPath.row].name!)")
         }
         else {
-            cell.setLabelText(text: "TAKEN \(indexPath)")
+            cell.setLabelText(text: "COMPLETED \(completedMedicationsArray[indexPath.row].name!)")
         }
         
         return cell
