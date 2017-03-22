@@ -31,4 +31,32 @@ class CustomDate: Hashable {
         self.day = day
     }
     
+    init(fromDate: Date) {
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        self.year = calendar.component(.year, from: fromDate)
+        self.month = calendar.component(.month, from: fromDate)
+        self.day = calendar.component(.day, from: fromDate)
+    }
+    
+}
+
+extension Date {
+    static let iso8601Formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+        return formatter
+    }()
+    var iso8601: String {
+        return Date.iso8601Formatter.string(from: self)
+    }
+}
+
+extension String {
+    var dateFromISO8601: Date? {
+        return Date.iso8601Formatter.date(from: self)
+    }
 }

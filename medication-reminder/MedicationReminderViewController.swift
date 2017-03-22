@@ -39,13 +39,30 @@ class MedicationReminderViewController: UIViewController {
     private func ohShit() {
         
         let daySeconds = 60*60*24
+//        let startDate = Date(timeIntervalSinceNow: Double(-1 * daySeconds * 18))
+//        let endDate = Date()
+        let startDate = Date()
+        let endDate = Date(timeIntervalSinceNow: Double(daySeconds))
         
-        let startDate = Date(timeIntervalSinceNow: Double(-1 * daySeconds * 18))
-        let endDate = Date()
         NetworkRequest.getMedications(startDate: startDate, endDate: endDate, successHandler: { (json) -> Void in
             for i in 0..<json.count {
-                let medicationJSON = json[i]
-                print(medicationJSON["name"].string)
+                let newMedication = Medication(fromJSON: json[i])
+                
+                if let medTime = newMedication.time {
+                    let customMedicationDate = CustomDate(fromDate: medTime)
+                    print(customMedicationDate.day)
+                    //if the date already exists append to medication array otherwise add new entry to dictionary
+                    if self.medicationsDictionary[customMedicationDate] != nil {
+                        self.medicationsDictionary[customMedicationDate]!.append(newMedication)
+                    }
+                    else {
+                        self.medicationsDictionary[customMedicationDate] = [newMedication]
+                    }
+                }
+                
+                if i == json.count - 1 {
+                    print("lmfao")
+                }
                 
             }
         })

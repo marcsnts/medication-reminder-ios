@@ -16,11 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        let date1 = CustomDate(year: 2017, month: 1, day: 1)
-        let date2 = CustomDate(year: 2017, month: 1, day: 1)
-        let date3 = CustomDate(year: 2017, month: 3, day: 1)
-
         return true
     }
 }
