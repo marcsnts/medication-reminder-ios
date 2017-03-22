@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		49900DA91E81F788008008E3 /* MedicationReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49900DA81E81F788008008E3 /* MedicationReminderViewController.swift */; };
+		49A070521E81FE6500F5C1D6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A070511E81FE6500F5C1D6 /* Color.swift */; };
 		4B5284162C3FCF41813EFE74 /* Pods_medication_reminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99A76BCD6251483082C59DD /* Pods_medication_reminder.framework */; };
 		5B485DE01E7C753D0013B925 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B485DDF1E7C753D0013B925 /* AppDelegate.swift */; };
 		5B485DE51E7C753D0013B925 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B485DE31E7C753D0013B925 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		49900DA81E81F788008008E3 /* MedicationReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationReminderViewController.swift; sourceTree = "<group>"; };
+		49A070511E81FE6500F5C1D6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		5B485DDC1E7C753D0013B925 /* medication-reminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "medication-reminder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B485DDF1E7C753D0013B925 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B485DE41E7C753D0013B925 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				5B485DE81E7C753D0013B925 /* LaunchScreen.storyboard */,
 				5B485DEB1E7C753D0013B925 /* Info.plist */,
 				49900DA81E81F788008008E3 /* MedicationReminderViewController.swift */,
+				49A070511E81FE6500F5C1D6 /* Color.swift */,
 			);
 			path = "medication-reminder";
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			files = (
 				5B485DE01E7C753D0013B925 /* AppDelegate.swift in Sources */,
 				49900DA91E81F788008008E3 /* MedicationReminderViewController.swift in Sources */,
+				49A070521E81FE6500F5C1D6 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
