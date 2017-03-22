@@ -22,6 +22,8 @@ class MedicationReminderViewController: UIViewController {
         self.calendar.scope = .week
         self.calendar.delegate = self
         self.calendar.dataSource = self
+        self.calendar.appearance.weekdayTextColor = Color.MavencareBlue
+        self.calendar.appearance.headerTitleColor = Color.MavencareBlue
         self.tableView.register(UINib(nibName: "MedicationTableViewCell", bundle: nil), forCellReuseIdentifier: "MedicationCell")
         self.tableView.delegate = self
         self.tableView.dataSource = self

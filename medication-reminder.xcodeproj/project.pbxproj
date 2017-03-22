@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		492E26971E82189700215CD8 /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E26961E82189700215CD8 /* Medication.swift */; };
+		492E26991E82196D00215CD8 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E26981E82196D00215CD8 /* NetworkRequest.swift */; };
 		49900DA91E81F788008008E3 /* MedicationReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49900DA81E81F788008008E3 /* MedicationReminderViewController.swift */; };
 		49A070521E81FE6500F5C1D6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A070511E81FE6500F5C1D6 /* Color.swift */; };
 		49A070571E8210D500F5C1D6 /* MedicationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A070551E8210D500F5C1D6 /* MedicationTableViewCell.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		492E26961E82189700215CD8 /* Medication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
+		492E26981E82196D00215CD8 /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		49900DA81E81F788008008E3 /* MedicationReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationReminderViewController.swift; sourceTree = "<group>"; };
 		49A070511E81FE6500F5C1D6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		49A070551E8210D500F5C1D6 /* MedicationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationTableViewCell.swift; sourceTree = "<group>"; };
@@ -76,6 +80,8 @@
 				49A070511E81FE6500F5C1D6 /* Color.swift */,
 				49A070551E8210D500F5C1D6 /* MedicationTableViewCell.swift */,
 				49A070561E8210D500F5C1D6 /* MedicationTableViewCell.xib */,
+				492E26961E82189700215CD8 /* Medication.swift */,
+				492E26981E82196D00215CD8 /* NetworkRequest.swift */,
 			);
 			path = "medication-reminder";
 			sourceTree = "<group>";
@@ -222,9 +228,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				492E26971E82189700215CD8 /* Medication.swift in Sources */,
 				49A070571E8210D500F5C1D6 /* MedicationTableViewCell.swift in Sources */,
 				5B485DE01E7C753D0013B925 /* AppDelegate.swift in Sources */,
 				49900DA91E81F788008008E3 /* MedicationReminderViewController.swift in Sources */,
+				492E26991E82196D00215CD8 /* NetworkRequest.swift in Sources */,
 				49A070521E81FE6500F5C1D6 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
