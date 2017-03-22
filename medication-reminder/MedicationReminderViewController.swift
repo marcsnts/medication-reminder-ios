@@ -17,6 +17,9 @@ class MedicationReminderViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var medicationsDictionary = [CustomDate: [Medication]]()
+    var missedMedicationsArray = [Medication]()
+    var completedMedicationsArray = [Medication]()
+    var upcomingMedicationsArray = [Medication]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,15 +35,13 @@ class MedicationReminderViewController: UIViewController {
         
         let daySeconds = 60*60*24
         let startDate = Date()
-        let endDate = Date(timeIntervalSinceNow: Double(daySeconds))
+        let endDate = Date(timeIntervalSinceNow: Double(daySeconds*5))
         
         NetworkRequest.getMedications(startDate: startDate, endDate: endDate, successHandler: { (json) -> Void in
             for i in 0..<json.count {
                 let newMedication = Medication(fromJSON: json[i])
-                
                 if let medTime = newMedication.time {
                     let customMedicationDate = CustomDate(fromDate: medTime)
-                    print(customMedicationDate.day)
                     //if the date already exists append to medication array otherwise add new entry to dictionary
                     if self.medicationsDictionary[customMedicationDate] != nil {
                         self.medicationsDictionary[customMedicationDate]!.append(newMedication)
@@ -48,8 +49,8 @@ class MedicationReminderViewController: UIViewController {
                     else {
                         self.medicationsDictionary[customMedicationDate] = [newMedication]
                     }
+
                 }
-                
             }
         })
         
@@ -60,6 +61,7 @@ class MedicationReminderViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
+    
     private func setupCalendar() {
         self.calendar.select(Date())
         self.calendar.scope = .week
@@ -91,6 +93,29 @@ class MedicationReminderViewController: UIViewController {
             make.bottom.equalToSuperview()
             make.centerX.equalToSuperview()
         }
+    }
+    
+    private func sortUpcomingMissedCompleted(atDate: CustomDate) {
+        
+        let fiveMinutes: Double = 60*5
+        
+        guard let medicationsArray = medicationsDictionary[atDate] else {
+            print("No medications found at \(atDate.toString())")
+            return
+        }
+        
+        for medication in medicationsArray {
+            if let completed = medication.completed {
+                if completed {
+                    completedMedicationsArray.append(medication)
+                }
+                else {
+                    
+                }
+            }
+        }
+        
+    
     }
     
 }
@@ -128,12 +153,23 @@ extension MedicationReminderViewController: FSCalendarDataSource, FSCalendarDele
         }
         self.view.layoutIfNeeded()
     }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print("selected \(date)")
+        let customDate = CustomDate(fromDate: date)
+        
+        
+    }
+    
 }
 
 extension MedicationReminderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        if section == 0 {
+            return missedMedicationsArray.count
+        }
+        return upcomingMedicationsArray.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -159,12 +195,3 @@ extension MedicationReminderViewController: UITableViewDelegate, UITableViewData
     }
     
 }
-
-
-
-
-
-
-
-
-

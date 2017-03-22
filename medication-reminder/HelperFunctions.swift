@@ -8,25 +8,26 @@
 
 import Foundation
 
-//Schema uses iso8601 for dates
 extension Date {
-    static let iso8601Formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .iso8601)
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = TimeZone(identifier: "UTC")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
-        return formatter
-    }()
-    var iso8601: String {
-        return Date.iso8601Formatter.string(from: self)
+    func isWithinFiveMinute(otherDate: Date) -> Bool {
+        let fiveMins:Double = 60*5
+        
+        if self.addingTimeInterval(fiveMins) >= otherDate && self.addingTimeInterval(-1.00*fiveMins) <= otherDate {
+            return true
+        }
+        
+        return false
     }
 }
 
 extension String {
-    var dateFromISO8601: Date? {
-        return Date.iso8601Formatter.date(from: self)
+    //assumes iso8601 format
+    var iso8601Date: Date? {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return df.date(from: self)
     }
+    
 }
 
 

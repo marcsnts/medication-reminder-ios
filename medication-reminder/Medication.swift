@@ -31,7 +31,7 @@ class Medication {
         self.name = fromJSON["name"].string
         self.dosage = fromJSON["dosage"].string
         if let timeString = fromJSON["time"].string {
-            self.time = timeString.dateFromISO8601
+            self.time = timeString.iso8601Date
         }
         self.completed = fromJSON["completed"].bool
     }

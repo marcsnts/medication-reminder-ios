@@ -33,10 +33,16 @@ class CustomDate: Hashable {
     
     init(fromDate: Date) {
         var calendar = Calendar.current
-        calendar.timeZone = TimeZone(identifier: "UTC")!
+        if Constants.LOCAL_TIME == false {
+            calendar.timeZone = TimeZone(identifier: "UTC")!
+        }
         self.year = calendar.component(.year, from: fromDate)
         self.month = calendar.component(.month, from: fromDate)
         self.day = calendar.component(.day, from: fromDate)
+    }
+
+    func toString() -> String {
+        return "\(self.year)/\(self.month)/\(self.day)"
     }
     
 }

@@ -11,6 +11,7 @@
 		492E26991E82196D00215CD8 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E26981E82196D00215CD8 /* NetworkRequest.swift */; };
 		492E269B1E823E3A00215CD8 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E269A1E823E3A00215CD8 /* CustomDate.swift */; };
 		492E269D1E824EB600215CD8 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E269C1E824EB500215CD8 /* HelperFunctions.swift */; };
+		492E269F1E82573A00215CD8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492E269E1E82573A00215CD8 /* Constants.swift */; };
 		49900DA91E81F788008008E3 /* MedicationReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49900DA81E81F788008008E3 /* MedicationReminderViewController.swift */; };
 		49A070521E81FE6500F5C1D6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A070511E81FE6500F5C1D6 /* Color.swift */; };
 		49A070571E8210D500F5C1D6 /* MedicationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A070551E8210D500F5C1D6 /* MedicationTableViewCell.swift */; };
@@ -27,6 +28,7 @@
 		492E26981E82196D00215CD8 /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		492E269A1E823E3A00215CD8 /* CustomDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
 		492E269C1E824EB500215CD8 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
+		492E269E1E82573A00215CD8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		49900DA81E81F788008008E3 /* MedicationReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationReminderViewController.swift; sourceTree = "<group>"; };
 		49A070511E81FE6500F5C1D6 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		49A070551E8210D500F5C1D6 /* MedicationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationTableViewCell.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				492E26981E82196D00215CD8 /* NetworkRequest.swift */,
 				492E269A1E823E3A00215CD8 /* CustomDate.swift */,
 				492E269C1E824EB500215CD8 /* HelperFunctions.swift */,
+				492E269E1E82573A00215CD8 /* Constants.swift */,
 			);
 			path = "medication-reminder";
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				492E269B1E823E3A00215CD8 /* CustomDate.swift in Sources */,
 				492E26991E82196D00215CD8 /* NetworkRequest.swift in Sources */,
 				49A070521E81FE6500F5C1D6 /* Color.swift in Sources */,
+				492E269F1E82573A00215CD8 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
