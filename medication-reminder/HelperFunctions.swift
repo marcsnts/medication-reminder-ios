@@ -31,8 +31,8 @@ extension String {
 }
 
 
-//Helper function that'll be used for making the HTTP queries
 extension Calendar {
+    //Helper function that'll be used for making the HTTP queries
     func toString(date: Date) -> String {
         let day = self.component(.day, from: date)
         let month = self.component(.month, from: date)

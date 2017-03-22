@@ -178,13 +178,13 @@ extension MedicationReminderViewController: UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "MedicationCell", for: indexPath) as! MedicationTableViewCell
         
         if indexPath.section == 0 {
-            cell.setLabelText(text: "UPCOMING \(upcomingMedicationsArray[indexPath.row].name!)")
+            cell.setupCell(medication: upcomingMedicationsArray[indexPath.row], status: .upcoming)
         }
         else if indexPath.section == 1 {
-            cell.setLabelText(text: "MISSED \(missedMedicationsArray[indexPath.row].name!)")
+            cell.setupCell(medication: missedMedicationsArray[indexPath.row], status: .missed)
         }
         else {
-            cell.setLabelText(text: "COMPLETED \(completedMedicationsArray[indexPath.row].name!)")
+            cell.setupCell(medication: completedMedicationsArray[indexPath.row], status: .completed)
         }
         
         return cell
