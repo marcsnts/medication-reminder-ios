@@ -16,6 +16,11 @@ class MedicationReminderViewController: UIViewController {
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func today(_ sender: Any) {
+        calendar.select(Date())
+        self.sortUpcomingMissedCompleted(atDate: CustomDate(fromDate: Date()))
+    }
+    
     var medicationsDictionary = [CustomDate: [Medication]]()
     var missedMedicationsArray = [Medication]()
     var completedMedicationsArray = [Medication]()
@@ -23,7 +28,6 @@ class MedicationReminderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadMedicationsIntoDictionary()
         setupNavBar()
         setupCalendar()
@@ -52,6 +56,8 @@ class MedicationReminderViewController: UIViewController {
 
                 }
             }
+            //Initial sort
+            self.sortUpcomingMissedCompleted(atDate: CustomDate(fromDate: Date()))
         })
         
     }
@@ -73,6 +79,7 @@ class MedicationReminderViewController: UIViewController {
     
     private func setupNavBar() {
         self.title = "Medication Reminder"
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.barTintColor = Color.MavencareBlue
         self.navigationController?.navigationBar.titleTextAttributes = [
             NSForegroundColorAttributeName : UIColor.white
@@ -141,9 +148,7 @@ extension MedicationReminderViewController: FSCalendarDataSource, FSCalendarDele
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("selected \(date)")
-        let customDate = CustomDate(fromDate: date)
-        sortUpcomingMissedCompleted(atDate: customDate)
+        sortUpcomingMissedCompleted(atDate: CustomDate(fromDate: date))
     }
     
 }

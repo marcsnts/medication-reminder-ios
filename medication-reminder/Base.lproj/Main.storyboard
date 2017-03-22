@@ -34,7 +34,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Ejb-Pu-eUd"/>
+                    <navigationItem key="navigationItem" id="Ejb-Pu-eUd">
+                        <barButtonItem key="rightBarButtonItem" title="Today" id="7VW-BN-9zL">
+                            <connections>
+                                <action selector="today:" destination="BYZ-38-t0r" id="JSl-x7-J4h"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="calendar" destination="P7d-w0-vda" id="EFR-Zz-LnQ"/>
                         <outlet property="tableView" destination="tnF-P7-4Rj" id="3be-7a-hkN"/>
