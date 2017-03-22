@@ -90,26 +90,3 @@ class NetworkRequest {
     
 }
 
-//Helper function that'll be used for making the HTTP queries
-extension Calendar {
-    func toString(date: Date) -> String {
-        let day = self.component(.day, from: date)
-        let month = self.component(.month, from: date)
-        let year = self.component(.year, from: date)
-        
-        return "\(month)/\(day)/\(year)"
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-

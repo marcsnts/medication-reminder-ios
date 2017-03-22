@@ -20,27 +20,17 @@ class MedicationReminderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadMedicationsIntoDictionary()
         setupNavBar()
-        self.calendar.select(Date())
-        self.calendar.scope = .week
-        self.calendar.delegate = self
-        self.calendar.dataSource = self
-        self.calendar.appearance.weekdayTextColor = Color.MavencareBlue
-        self.calendar.appearance.headerTitleColor = Color.MavencareBlue
-        self.tableView.register(UINib(nibName: "MedicationTableViewCell", bundle: nil), forCellReuseIdentifier: "MedicationCell")
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        setupCalendar()
+        setupTableView()
         setupConstraints()
-        
-        
-        ohShit()
     }
     
-    private func ohShit() {
+    private func loadMedicationsIntoDictionary() {
         
         let daySeconds = 60*60*24
-//        let startDate = Date(timeIntervalSinceNow: Double(-1 * daySeconds * 18))
-//        let endDate = Date()
         let startDate = Date()
         let endDate = Date(timeIntervalSinceNow: Double(daySeconds))
         
@@ -60,15 +50,24 @@ class MedicationReminderViewController: UIViewController {
                     }
                 }
                 
-                if i == json.count - 1 {
-                    print("lmfao")
-                }
-                
             }
         })
         
     }
     
+    private func setupTableView() {
+        self.tableView.register(UINib(nibName: "MedicationTableViewCell", bundle: nil), forCellReuseIdentifier: "MedicationCell")
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+    }
+    private func setupCalendar() {
+        self.calendar.select(Date())
+        self.calendar.scope = .week
+        self.calendar.delegate = self
+        self.calendar.dataSource = self
+        self.calendar.appearance.weekdayTextColor = Color.MavencareBlue
+        self.calendar.appearance.headerTitleColor = Color.MavencareBlue
+    }
     
     private func setupNavBar() {
         self.title = "Medication Reminder"
