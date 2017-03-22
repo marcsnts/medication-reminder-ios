@@ -10,7 +10,7 @@ import UIKit
 import FSCalendar
 import SnapKit
 
-class MedicationReminderViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
+class MedicationReminderViewController: UIViewController {
 
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
@@ -22,8 +22,9 @@ class MedicationReminderViewController: UIViewController, FSCalendarDataSource, 
         self.calendar.scope = .week
         self.calendar.delegate = self
         self.calendar.dataSource = self
-        self.tableView.isHidden = false
-        
+        self.tableView.register(UINib(nibName: "MedicationTableViewCell", bundle: nil), forCellReuseIdentifier: "MedicationCell")
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         setupConstraints()
         
     }
@@ -52,16 +53,52 @@ class MedicationReminderViewController: UIViewController, FSCalendarDataSource, 
         }
     }
     
-    
-    
-    
+}
+
+extension MedicationReminderViewController: FSCalendarDataSource, FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         calendar.snp.updateConstraints { (make) in
             make.height.equalTo(bounds.height)
-            // Do other updates
         }
         self.view.layoutIfNeeded()
     }
-
-
 }
+
+extension MedicationReminderViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionTitles = ["Missed Medications", "Upcoming Medications"]
+        return sectionTitles[section]
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MedicationCell", for: indexPath) as! MedicationTableViewCell
+        
+        if indexPath.section == 0 {
+            cell.setLabelText(text: "MISSED \(indexPath)")
+        }
+        else {
+            cell.setLabelText(text: "TAKEN \(indexPath)")
+        }
+        
+        return cell
+    }
+    
+}
+
+
+
+
+
+
+
+
+
