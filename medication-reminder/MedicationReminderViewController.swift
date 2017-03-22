@@ -16,7 +16,7 @@ class MedicationReminderViewController: UIViewController {
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
     
-    var medicationsDictionary = [Date: [Medication]]()
+    var medicationsDictionary = [CustomDate: [Medication]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
