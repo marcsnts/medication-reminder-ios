@@ -33,6 +33,28 @@ class MedicationReminderViewController: UIViewController {
         setupCalendar()
         setupTableView()
         setupConstraints()
+        var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(checkUpcomingTimes), userInfo: nil, repeats: true)
+
+    }
+    
+    func checkUpcomingTimes() {
+        let now = Date()
+        let date = CustomDate(fromDate: now)
+        guard let medicationsArray = medicationsDictionary[date] else {
+            print("No medications found at \(date.toString())")
+            return
+        }
+        
+        for medication in medicationsArray {
+            if let completed = medication.completed, let time = medication.time {
+                if !completed {
+                    if time.isWithinFiveMinutes(otherDate:now) {
+                        
+                    }
+                }
+            }
+        }
+        
     }
     
     private func loadMedicationsIntoDictionary() {

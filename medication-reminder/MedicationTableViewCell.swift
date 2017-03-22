@@ -21,6 +21,8 @@ class MedicationTableViewCell: UITableViewCell {
     
     @IBOutlet weak var statusImageView: UIImageView!
     
+    var medication: Medication?
+ 
     func setupCell(medication: Medication, status: MedicationStatus) {
         
         var bgColor = UIColor()

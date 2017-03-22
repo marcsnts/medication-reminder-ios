@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import UserNotifications
 
 class Medication {
     
@@ -34,6 +35,33 @@ class Medication {
             self.time = timeString.iso8601Date
         }
         self.completed = fromJSON["completed"].bool
+    }
+    
+    func createLocalNotification() {
+        
+        guard let name = self.name, let dosage = self.dosage, let time = self.time, let id = self.id else {
+            return
+        }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Medication time!"
+        content.body = "\(dosage) \(name)"
+        content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "MedicationReminderCategory"
+        
+        let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: time)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+        
+        let center = UNUserNotificationCenter.current()
+        center.add(request, withCompletionHandler: { (error) in
+            if let error = error {
+                // Something went wrong
+                print(error)
+            }
+        })
+        
     }
     
 }
