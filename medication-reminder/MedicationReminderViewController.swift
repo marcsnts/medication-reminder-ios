@@ -9,11 +9,14 @@
 import UIKit
 import FSCalendar
 import SnapKit
+import SwiftyJSON
 
 class MedicationReminderViewController: UIViewController {
 
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
+    
+    var medicationsDictionary = [Date: [Medication]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +32,26 @@ class MedicationReminderViewController: UIViewController {
         self.tableView.dataSource = self
         setupConstraints()
         
+        
+        ohShit()
     }
+    
+    private func ohShit() {
+        
+        let daySeconds = 60*60*24
+        
+        let startDate = Date(timeIntervalSinceNow: Double(-1 * daySeconds * 18))
+        let endDate = Date()
+        NetworkRequest.getMedications(startDate: startDate, endDate: endDate, successHandler: { (json) -> Void in
+            for i in 0..<json.count {
+                let medicationJSON = json[i]
+                print(medicationJSON["name"].string)
+                
+            }
+        })
+        
+    }
+    
     
     private func setupNavBar() {
         self.title = "Medication Reminder"
@@ -56,6 +78,32 @@ class MedicationReminderViewController: UIViewController {
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 extension MedicationReminderViewController: FSCalendarDataSource, FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
