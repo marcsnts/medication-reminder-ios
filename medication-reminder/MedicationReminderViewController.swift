@@ -132,9 +132,19 @@ class MedicationReminderViewController: UIViewController {
                 }
             }
         }
-        
+        missedMedicationsArray.sort(by: ascendingTimeSort)
+        upcomingMedicationsArray.sort(by: ascendingTimeSort)
+        completedMedicationsArray.sort(by: ascendingTimeSort)
         self.tableView.reloadData()
     
+    }
+    
+    func ascendingTimeSort(medication1: Medication, medication2: Medication) -> Bool {
+        guard let time1 = medication1.time, let time2 = medication2.time else {
+            return false
+        }
+        
+        return time1 < time2
     }
     
 }

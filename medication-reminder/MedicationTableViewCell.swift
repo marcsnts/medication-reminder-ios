@@ -19,28 +19,37 @@ class MedicationTableViewCell: UITableViewCell {
     
     @IBOutlet weak var medicationDosageLabel: UILabel!
     
+    @IBOutlet weak var statusImageView: UIImageView!
+    
     func setupCell(medication: Medication, status: MedicationStatus) {
         
         var bgColor = UIColor()
-        
+        var image: UIImage?
         switch status {
         case .completed:
             bgColor = Color.Green
+            image = UIImage(named: "checkmark")
         case .missed:
             bgColor = Color.Red
+            image = UIImage(named: "red-x")
         case .upcoming:
             bgColor = Color.Orange
+            image = UIImage(named: "warning")
         }
+        
+        statusImageView.image = image
         
 //        self.backgroundColor = bgColor        
         
-        guard let medicationName = medication.name, let medicationDosage = medication.dosage else {
+        guard let medicationName = medication.name, let medicationDosage = medication.dosage, let medicationTime = medication.time else {
             medicationNameLabel.text = "Unknown"
             medicationNameLabel.text = nil
             return
         }
         
-        medicationNameLabel.text = medicationName
+        let df = DateFormatter()
+        df.dateFormat = "h:mm a"
+        medicationNameLabel.text = "\(medicationName) at \(df.string(from: medicationTime))"
         medicationDosageLabel.text = medicationDosage
         
     }
@@ -58,10 +67,12 @@ class MedicationTableViewCell: UITableViewCell {
             make.left.equalToSuperview().offset(8)
         }
         
+        statusImageView.snp.makeConstraints { (make) -> Void in
+            make.size.equalTo(CGSize(width: 30, height: 30))
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-10)
+        }
         
-//        testLabel.snp.makeConstraints { (make) -> Void in
-//            make.center.equalToSuperview()
-//        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
