@@ -15,12 +15,36 @@ enum MedicationStatus {
 
 class MedicationTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var takeButton: UIButton!
     @IBOutlet weak var medicationNameLabel: UILabel!
     @IBOutlet weak var medicationDosageLabel: UILabel!
     @IBOutlet weak var statusImageView: UIImageView!
     var medication: Medication?
  
+    @IBAction func takeMedication(_ sender: Any) {
+        
+        guard let medication = self.medication, let id = medication.id else {
+            print("Medication for cell not set")
+            return
+        }
+        
+        let d = [
+            "m" : Date().iso8601String,
+            "c" : nil
+        ]
+        let body: [String:Any] = [
+            "completed" : true,
+            "d" : d
+        ]
+        
+        NetworkRequest.patchMedication(medicationId: id, params: body, successHandler: { (json) -> Void in
+            medication.completed = true
+        })
+    }
+    
     func setupCell(medication: Medication, status: MedicationStatus) {
+        
+        self.medication = medication
         
         var image: UIImage?
         switch status {
@@ -49,6 +73,8 @@ class MedicationTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        takeButton.isHidden = true
         
         medicationNameLabel.snp.makeConstraints { (make) -> Void in
             make.left.equalToSuperview().offset(8)

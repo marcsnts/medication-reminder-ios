@@ -48,6 +48,12 @@ class MedicationReminderViewController: UIViewController {
         for medication in medicationsArray {
             if let completed = medication.completed, let time = medication.time {
                 if !completed {
+                    //Not using exactly 5 minutes so we allow the app a small margin for error
+                    if time >= time.addingTimeInterval(Double(-1*60*4.9)) && time <= time.addingTimeInterval(Double(60*5.1)) {
+                        
+                    }
+                    
+                    
                     if time.isWithinFiveMinutes(otherDate:now) {
                         
                     }
