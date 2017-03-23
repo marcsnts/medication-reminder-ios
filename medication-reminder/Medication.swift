@@ -18,26 +18,42 @@ class Medication {
     var time: Date?
     var completed: Bool?
     var takeable: Bool
+    var missed: Bool
     
-    init(id: String?, name: String?, dosage: String?, time: Date?, completed: Bool?) {
+    init(id: String?, name: String?, dosage: String?, time: Date?, completed: Bool?, missed: Bool) {
         self.id = id
         self.name = name
         self.dosage = dosage
         self.time = time
         self.completed = completed
         self.takeable = false
+        self.missed = false
+        
+        //if current time exceeds the medication time + 5 mins, then missed
+        if let time = time {
+            if Date() > time.addingTimeInterval(Double(60*5.1)){
+                self.missed = true
+            }
+        }
     }
     
     //Assumes schema
     init(fromJSON: JSON) {
+        self.missed = false;
         self.id = fromJSON["_id"].string
         self.name = fromJSON["name"].string
         self.dosage = fromJSON["dosage"].string
         if let timeString = fromJSON["time"].string {
             self.time = timeString.iso8601Date
+            //if current time exceeds the medication time + 5 mins, then missed
+            if let time = self.time {
+                if Date() > time.addingTimeInterval(Double(60*5.1)){
+                    self.missed = true
+                }
+            }
         }
         self.completed = fromJSON["completed"].bool
-        takeable = false
+        self.takeable = false
     }
     
     func createLocalNotification() {

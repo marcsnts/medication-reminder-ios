@@ -166,14 +166,11 @@ class MedicationReminderViewController: UIViewController {
                     completedMedicationsArray.append(medication)
                 }
                 else {
-                    if let time = medication.time {
-                        let now = Date()
-                        if time.isWithinFiveMinutes(otherDate:now) || time >= now {
-                            upcomingMedicationsArray.append(medication)
-                        }
-                        else {
-                            missedMedicationsArray.append(medication)
-                        }
+                    if medication.missed {
+                        missedMedicationsArray.append(medication)
+                    }
+                    else {
+                        upcomingMedicationsArray.append(medication)
                     }
                 }
             }
