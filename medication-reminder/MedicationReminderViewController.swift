@@ -62,7 +62,19 @@ class MedicationReminderViewController: UIViewController {
             for i in 0..<json.count {
                 let newMedication = Medication(fromJSON: json[i])
                 newMedication.createLocalNotification()
-                print(newMedication.id!)
+                
+                print(newMedication.time!.iso8601String)
+//                let swag = [
+//                    "m" : 
+//                ]
+//                
+//                let testParams = [
+//                    "completed" : true,
+//                
+//                ]
+//                NetworkRequest.patchMedication(medicationId: newMedication.id!, params: , successHandler: <#T##(JSON) -> Void#>)
+                
+                
                 if let medTime = newMedication.time {
                     let customMedicationDate = CustomDate(fromDate: medTime)
                     //if the date already exists append to medication array otherwise add new entry to dictionary

@@ -18,13 +18,20 @@ extension Date {
         
         return false
     }
+    
+    var iso8601String: String {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
+        return df.string(from: self)
+    }
+    
 }
 
 extension String {
-    //assumes iso8601 format
+
     var iso8601Date: Date? {
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
         return df.date(from: self)
     }
     
