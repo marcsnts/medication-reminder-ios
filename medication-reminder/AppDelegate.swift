@@ -21,11 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
-        let snoozeAction = UNNotificationAction(identifier: "Snooze",
-                                                title: "Snooze", options: [])
-        let takeAction = UNNotificationAction(identifier: "Take",
-                                              title: "Take", options: [.foreground])
-        
+        let snoozeAction = UNNotificationAction(identifier: "Snooze", title: "Snooze", options: [])
+        let takeAction = UNNotificationAction(identifier: "Take", title: "Take", options: [.foreground])
         let category = UNNotificationCategory(identifier: "MedicationReminderCategory",
                                               actions: [snoozeAction, takeAction],
                                               intentIdentifiers: [], options: [])

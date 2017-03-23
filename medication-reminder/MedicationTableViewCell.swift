@@ -16,32 +16,23 @@ enum MedicationStatus {
 class MedicationTableViewCell: UITableViewCell {
 
     @IBOutlet weak var medicationNameLabel: UILabel!
-    
     @IBOutlet weak var medicationDosageLabel: UILabel!
-    
     @IBOutlet weak var statusImageView: UIImageView!
-    
     var medication: Medication?
  
     func setupCell(medication: Medication, status: MedicationStatus) {
         
-        var bgColor = UIColor()
         var image: UIImage?
         switch status {
         case .completed:
-            bgColor = Color.Green
             image = UIImage(named: "checkmark")
         case .missed:
-            bgColor = Color.Red
             image = UIImage(named: "red-x")
         case .upcoming:
-            bgColor = Color.Orange
             image = UIImage(named: "warning")
         }
         
         statusImageView.image = image
-        
-//        self.backgroundColor = bgColor        
         
         guard let medicationName = medication.name, let medicationDosage = medication.dosage, let medicationTime = medication.time else {
             medicationNameLabel.text = "Unknown"

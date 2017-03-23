@@ -13,7 +13,8 @@ import SwiftyJSON
 enum NetworkRequestType: String {
     case POST = "POST",
     GET = "GET",
-    PUT = "PUT"
+    PUT = "PUT",
+    PATCH = "PATCH"
 }
 
 class NetworkRequest {
@@ -28,7 +29,7 @@ class NetworkRequest {
         
         var request = URLRequest(url: url)
         request.httpMethod = requestType.rawValue
-        
+
         //Set header
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -82,8 +83,27 @@ class NetworkRequest {
                 print(error)
             }
         }
+    }
+    
+    class func patchMedication(medicationId: String, params: [String: Any], successHandler: @escaping (JSON) -> Void) {
         
-            
+        let url = "\(apiBaseUrl)medications/\(medicationId)"
+
+        guard let request = createRequest(requestType: .PATCH, url: url, data: [params], queryParameters: nil) else {
+            print("Unable to create request for PATCH medication with id \(medicationId)")
+            return
+        }
+        
+        Alamofire.request(request).validate().responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                successHandler(json)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
     }
     
     

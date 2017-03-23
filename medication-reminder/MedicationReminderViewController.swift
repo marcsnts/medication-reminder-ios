@@ -28,7 +28,7 @@ class MedicationReminderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadMedicationsIntoDictionary()
+        loadMedicationsFromAPI()
         setupNavBar()
         setupCalendar()
         setupTableView()
@@ -54,18 +54,15 @@ class MedicationReminderViewController: UIViewController {
                 }
             }
         }
-        
     }
     
-    private func loadMedicationsIntoDictionary() {
-        
-        let daySeconds = 60*60*24
-        let startDate = Date()
-        let endDate = Date(timeIntervalSinceNow: Double(daySeconds*5))
-        
-        NetworkRequest.getMedications(startDate: startDate, endDate: endDate, successHandler: { (json) -> Void in
+    private func loadMedicationsFromAPI() {
+   
+        NetworkRequest.getMedications(startDate: Constants.START_DATE, endDate: Constants.END_DATE, successHandler: { (json) -> Void in
             for i in 0..<json.count {
                 let newMedication = Medication(fromJSON: json[i])
+                newMedication.createLocalNotification()
+                print(newMedication.id!)
                 if let medTime = newMedication.time {
                     let customMedicationDate = CustomDate(fromDate: medTime)
                     //if the date already exists append to medication array otherwise add new entry to dictionary
@@ -75,7 +72,6 @@ class MedicationReminderViewController: UIViewController {
                     else {
                         self.medicationsDictionary[customMedicationDate] = [newMedication]
                     }
-
                 }
             }
             //Initial sort
@@ -171,6 +167,7 @@ class MedicationReminderViewController: UIViewController {
     
 }
 
+//CALENDAR DELEGATE
 extension MedicationReminderViewController: FSCalendarDataSource, FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         calendar.snp.updateConstraints { (make) in
@@ -183,8 +180,17 @@ extension MedicationReminderViewController: FSCalendarDataSource, FSCalendarDele
         sortUpcomingMissedCompleted(atDate: CustomDate(fromDate: date))
     }
     
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return Constants.END_DATE
+    }
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        return Constants.START_DATE
+    }
+    
 }
 
+//TABLEVIEW DELEGATE
 extension MedicationReminderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

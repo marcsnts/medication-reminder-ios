@@ -10,7 +10,10 @@ import Foundation
 
 class Constants {
     
-    //if set to false uses UTC
-    static let LOCAL_TIME = true
+    static let START_DATE = Date()
+    //60*60*24 = 1 day
+    static let END_DATE = Date(timeIntervalSinceNow: Double(60*60*24*5))
+
+    
     
 }

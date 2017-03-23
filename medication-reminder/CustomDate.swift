@@ -32,10 +32,7 @@ class CustomDate: Hashable {
     }
     
     init(fromDate: Date) {
-        var calendar = Calendar.current
-        if Constants.LOCAL_TIME == false {
-            calendar.timeZone = TimeZone(identifier: "UTC")!
-        }
+        let calendar = Calendar.current
         self.year = calendar.component(.year, from: fromDate)
         self.month = calendar.component(.month, from: fromDate)
         self.day = calendar.component(.day, from: fromDate)
