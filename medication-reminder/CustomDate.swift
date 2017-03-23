@@ -14,23 +14,19 @@ func ==(lhs: CustomDate, rhs: CustomDate) -> Bool {
 }
 
 class CustomDate: Hashable {
-    
     var year: Int
     var month: Int
     var day: Int
-    
     var hashValue: Int {
         get {
             return "\(self.year)/\(self.month)/\(self.day)".hashValue
         }
     }
-    
     init(year: Int, month: Int, day: Int) {
         self.year = year
         self.month = month
         self.day = day
     }
-    
     init(fromDate: Date) {
         let calendar = Calendar.current
         self.year = calendar.component(.year, from: fromDate)
@@ -41,5 +37,4 @@ class CustomDate: Hashable {
     func toString() -> String {
         return "\(self.year)/\(self.month)/\(self.day)"
     }
-    
 }

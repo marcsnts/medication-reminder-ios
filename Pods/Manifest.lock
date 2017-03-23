@@ -2,20 +2,23 @@ PODS:
   - Alamofire (4.0.1)
   - FSCalendar (2.7.4)
   - SnapKit (3.2.0)
+  - SwiftLint (0.16.1)
   - SwiftyJSON (3.1.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0.1)
   - FSCalendar (~> 2.7.4)
   - SnapKit (~> 3.2.0)
+  - SwiftLint
   - SwiftyJSON (~> 3.1.1)
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   FSCalendar: e95995a746acae531c4a7dd636b8393233125ec5
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
+  SwiftLint: b8b683208cc09640898f16318a7a452274e91f61
   SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
 
-PODFILE CHECKSUM: 9150dba56a0f542f68d4df4a0774921079761ae9
+PODFILE CHECKSUM: 37baec8c2e7f241d0d90e3b1d4b48e082e43df12
 
 COCOAPODS: 1.2.0

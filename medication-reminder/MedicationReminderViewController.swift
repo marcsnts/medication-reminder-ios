@@ -15,12 +15,10 @@ class MedicationReminderViewController: UIViewController {
 
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
-    
     @IBAction func today(_ sender: Any) {
         calendar.select(Date())
         self.sortUpcomingMissedCompleted(atDate: CustomDate(fromDate: Date()))
     }
-    
     var medicationsDictionary = [CustomDate: [Medication]]()
     var missedMedicationsArray = [Medication]()
     var completedMedicationsArray = [Medication]()
@@ -34,12 +32,9 @@ class MedicationReminderViewController: UIViewController {
         setupTableView()
         setupConstraints()
         var _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(checkUpcomingTimes), userInfo: nil, repeats: true)
-
     }
-    
     private func refreshCells() {
         let cells = self.tableView.visibleCells
-        
         for cell in cells {
             if let cell = cell as? MedicationTableViewCell {
                 if cell.updateCellUI() {
@@ -71,11 +66,9 @@ class MedicationReminderViewController: UIViewController {
                         self.tableView.endUpdates()
                     }
                 }
-                
             }
         }
     }
-    
     func checkUpcomingTimes() {
         let now = Date()
         let date = CustomDate(fromDate: now)
@@ -83,7 +76,6 @@ class MedicationReminderViewController: UIViewController {
             print("No medications found at \(date.toString())")
             return
         }
-        
         for medication in medicationsArray {
             if let completed = medication.completed, let time = medication.time {
                 if !completed {
@@ -100,7 +92,6 @@ class MedicationReminderViewController: UIViewController {
                         if now >= time.addingTimeInterval(-1.00*Constants.REFRESH_ERROR_MARGIN) && now <= time.addingTimeInterval(Constants.REFRESH_ERROR_MARGIN) {
                             Sound.play(type: .chime, repeats: nil)
                         }
-                        
                         //Time exceeds 5 minutes
                         if now > time.addingTimeInterval(Double(60*5+Constants.REFRESH_ERROR_MARGIN)) {
                             medication.takeable = false
@@ -113,9 +104,7 @@ class MedicationReminderViewController: UIViewController {
             }
         }
     }
-    
     private func loadMedicationsFromAPI() {
-   
         NetworkRequest.getMedications(startDate: Constants.START_DATE, endDate: Constants.END_DATE, successHandler: { (json) -> Void in
             for i in 0..<json.count {
                 let newMedication = Medication(fromJSON: json[i])
@@ -134,15 +123,12 @@ class MedicationReminderViewController: UIViewController {
             //Initial sort
             self.sortUpcomingMissedCompleted(atDate: CustomDate(fromDate: Date()))
         })
-        
     }
-    
     private func setupTableView() {
         self.tableView.register(UINib(nibName: "MedicationTableViewCell", bundle: nil), forCellReuseIdentifier: "MedicationCell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
-    
     private func setupCalendar() {
         self.calendar.select(Date())
         self.calendar.scope = .week
@@ -151,16 +137,14 @@ class MedicationReminderViewController: UIViewController {
         self.calendar.appearance.weekdayTextColor = Color.MavencareBlue
         self.calendar.appearance.headerTitleColor = Color.MavencareBlue
     }
-    
     private func setupNavBar() {
         self.title = "Medication Reminder"
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.barTintColor = Color.MavencareBlue
         self.navigationController?.navigationBar.titleTextAttributes = [
-            NSForegroundColorAttributeName : UIColor.white
+            NSForegroundColorAttributeName: UIColor.white
         ]
     }
-    
     private func setupConstraints() {
         self.calendar.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.topLayoutGuide.snp.bottom)
@@ -168,7 +152,6 @@ class MedicationReminderViewController: UIViewController {
             make.width.equalToSuperview()
             make.centerX.equalToSuperview()
         }
-        
         self.tableView.snp.makeConstraints { (make) -> Void in
             make.width.equalToSuperview()
             make.top.equalTo(self.calendar.snp.bottom)
@@ -176,19 +159,15 @@ class MedicationReminderViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
     }
-    
     func sortUpcomingMissedCompleted(atDate: CustomDate) {
-        
         completedMedicationsArray = []
         upcomingMedicationsArray = []
         missedMedicationsArray = []
-        
         guard let medicationsArray = medicationsDictionary[atDate] else {
             print("No medications found at \(atDate.toString())")
             self.tableView.reloadData()
             return
         }
-        
         for medication in medicationsArray {
             if let completed = medication.completed {
                 if completed {
@@ -208,14 +187,11 @@ class MedicationReminderViewController: UIViewController {
         upcomingMedicationsArray.sort(by: ascendingTimeSort)
         completedMedicationsArray.sort(by: ascendingTimeSort)
         self.tableView.reloadData()
-    
     }
-    
     func ascendingTimeSort(medication1: Medication, medication2: Medication) -> Bool {
         guard let time1 = medication1.time, let time2 = medication2.time else {
             return false
         }
-        
         return time1 < time2
     }
     
@@ -229,7 +205,6 @@ extension MedicationReminderViewController: FSCalendarDataSource, FSCalendarDele
         }
         self.view.layoutIfNeeded()
     }
-    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         sortUpcomingMissedCompleted(atDate: CustomDate(fromDate: date))
     }
@@ -237,16 +212,13 @@ extension MedicationReminderViewController: FSCalendarDataSource, FSCalendarDele
     func maximumDate(for calendar: FSCalendar) -> Date {
         return Constants.END_DATE
     }
-    
     func minimumDate(for calendar: FSCalendar) -> Date {
         return Constants.START_DATE
     }
-    
 }
 
 //TABLEVIEW DELEGATE
 extension MedicationReminderViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return upcomingMedicationsArray.count
@@ -256,19 +228,15 @@ extension MedicationReminderViewController: UITableViewDelegate, UITableViewData
         }
         return completedMedicationsArray.count
     }
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionTitles = ["Upcoming Medications", "Missed Medications", "Taken Medications"]
         return sectionTitles[section]
     }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MedicationCell", for: indexPath) as! MedicationTableViewCell
-        
         if indexPath.section == 0 {
             cell.setupCell(medication: upcomingMedicationsArray[indexPath.row], status: .upcoming)
         }
@@ -278,8 +246,6 @@ extension MedicationReminderViewController: UITableViewDelegate, UITableViewData
         else {
             cell.setupCell(medication: completedMedicationsArray[indexPath.row], status: .completed)
         }
-        
         return cell
     }
-    
 }

@@ -1,4 +1,3 @@
-
 //
 //  Sound.swift
 //  medication-reminder
@@ -16,9 +15,7 @@ enum SoundType: SystemSoundID {
 }
 
 class Sound {
-    
     class func play(type: SoundType, repeats: Int?) {
-      
         if let repeats = repeats {
             for _ in 0..<repeats {
                 AudioServicesPlaySystemSound(type.rawValue)
@@ -28,7 +25,5 @@ class Sound {
             AudioServicesPlaySystemSound(type.rawValue)
 
         }
-        
     }
-    
 }
