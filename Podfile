@@ -7,4 +7,5 @@ target 'medication-reminder' do
     pod 'SwiftyJSON', '~> 3.1.1'
     pod 'FSCalendar', '~> 2.7.4'
     pod 'SnapKit', '~> 3.2.0'
+    pod 'SwiftLint'
 end

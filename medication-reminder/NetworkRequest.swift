@@ -11,22 +11,18 @@ import Alamofire
 import SwiftyJSON
 
 enum NetworkRequestType: String {
-    case POST = "POST",
-    GET = "GET",
-    PUT = "PUT",
-    PATCH = "PATCH"
+    case POST,
+    GET,
+    PUT,
+    PATCH
 }
 
 class NetworkRequest {
-    
     static let apiBaseUrl = "http://localhost:9000/api/"
-    
     class func createRequest(requestType: NetworkRequestType, url: String, data: [[String:Any]]?, queryParameters: Parameters?) -> URLRequest? {
-        
         guard let url = URL(string: url) else {
             return nil
         }
-        
         var request = URLRequest(url: url)
         request.httpMethod = requestType.rawValue
 
@@ -46,7 +42,6 @@ class NetworkRequest {
                 print("[ERROR]Could not serialize body to JSON")
             }
         }
-        
         if let queryParameters = queryParameters {
             do {
                 request = try URLEncoding.queryString.encode(request, with: queryParameters)
@@ -57,13 +52,11 @@ class NetworkRequest {
 //        NSString(data: request.httpBody!, encoding: NSUTF8StringEncoding)
         return request
     }
-    
     class func getMedications(startDate: Date, endDate: Date, successHandler: @escaping (JSON) -> Void) {
         if startDate > endDate {
             print("Failed to get medications because start date is greater than end date")
             return
         }
-        
         let calendar = Calendar.current
         let start = calendar.toString(date: startDate)
         let end = calendar.toString(date: endDate)
@@ -72,13 +65,10 @@ class NetworkRequest {
             "start": start,
             "end": end
         ]
-        
-        
         guard let request = createRequest(requestType: .GET, url: url, data: nil, queryParameters: queryParameters) else {
             print("Failed to make get medication URLRequest")
             return
         }
-        
         Alamofire.request(request).validate().responseJSON { response in
             switch response.result {
             case .success(let value):
@@ -89,16 +79,13 @@ class NetworkRequest {
             }
         }
     }
-    
     class func patchMedication(medicationId: String, params: [String: Any], successHandler: @escaping (JSON) -> Void) {
-        
         let url = "\(apiBaseUrl)medications/\(medicationId)"
 
         guard let request = createRequest(requestType: .PATCH, url: url, data: [params], queryParameters: nil) else {
             print("Unable to create request for PATCH medication with id \(medicationId)")
             return
         }
-        
         Alamofire.request(request).validate().responseJSON { response in
             switch response.result {
             case .success(let value):
@@ -108,10 +95,5 @@ class NetworkRequest {
                 print(error)
             }
         }
-        
     }
-    
-    
-    
 }
-
