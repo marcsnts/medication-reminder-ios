@@ -37,6 +37,23 @@ class MedicationReminderViewController: UIViewController {
 
     }
     
+    private func refreshCells() {
+        let cells = self.tableView.visibleCells
+        
+        for cell in cells {
+            if let cell = cell as? MedicationTableViewCell {
+                if cell.updateCellUI() {
+                    if let indexPath = self.tableView.indexPath(for: cell) {
+                        self.tableView.beginUpdates()
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                        self.tableView.endUpdates()
+                    }
+                }
+                
+            }
+        }
+    }
+    
     func checkUpcomingTimes() {
         let now = Date()
         let date = CustomDate(fromDate: now)
@@ -48,15 +65,21 @@ class MedicationReminderViewController: UIViewController {
         for medication in medicationsArray {
             if let completed = medication.completed, let time = medication.time {
                 if !completed {
-                    //Not using exactly 5 minutes so we allow the app a small margin for error
-                    if time >= time.addingTimeInterval(Double(-1*60*4.9)) && time <= time.addingTimeInterval(Double(60*5.1)) {
-                        
+                    let now = Date()
+                    if !medication.takeable {
+                        //Not using exactly 5 minutes so we allow the app a small margin for error
+                        if now >= time.addingTimeInterval(Double(-1*60*4.9)) && now <= time.addingTimeInterval(Double(60*5.1)) {
+                            medication.takeable = true
+                        }
                     }
-                    
-                    
-                    if time.isWithinFiveMinutes(otherDate:now) {
-                        
+                    else {
+                        //Time exceeds 5 minutes
+                        if now > time.addingTimeInterval(Double(60*5.1)) {
+                            medication.takeable = false
+                            Sound.play(type: .alarm, repeats: 3)
+                        }
                     }
+                    refreshCells()
                 }
             }
         }
@@ -68,22 +91,6 @@ class MedicationReminderViewController: UIViewController {
             for i in 0..<json.count {
                 let newMedication = Medication(fromJSON: json[i])
                 newMedication.createLocalNotification()
-                
-//                let swag = [
-//                    "m" : Date().iso8601String,
-//                    "c" : nil
-//                ]
-//                
-//                let testParams: [String:Any] = [
-//                    "completed" : true,
-//                    "d" : swag
-//                ]
-//                
-//                NetworkRequest.patchMedication(medicationId: newMedication.id!, params: testParams, successHandler: { (json) -> Void in
-//                    newMedication.completed = true
-//                })
-                
-                
                 if let medTime = newMedication.time {
                     let customMedicationDate = CustomDate(fromDate: medTime)
                     //if the date already exists append to medication array otherwise add new entry to dictionary

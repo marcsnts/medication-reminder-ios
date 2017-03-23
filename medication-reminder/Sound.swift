@@ -20,7 +20,7 @@ class Sound {
     class func play(type: SoundType, repeats: Int?) {
       
         if let repeats = repeats {
-            for i in 0..<repeats {
+            for _ in 0..<repeats {
                 AudioServicesPlaySystemSound(type.rawValue)
             }
         }

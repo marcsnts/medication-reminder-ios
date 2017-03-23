@@ -17,6 +17,7 @@ class Medication {
     var dosage: String?
     var time: Date?
     var completed: Bool?
+    var takeable: Bool
     
     init(id: String?, name: String?, dosage: String?, time: Date?, completed: Bool?) {
         self.id = id
@@ -24,6 +25,7 @@ class Medication {
         self.dosage = dosage
         self.time = time
         self.completed = completed
+        self.takeable = false
     }
     
     //Assumes schema
@@ -35,6 +37,7 @@ class Medication {
             self.time = timeString.iso8601Date
         }
         self.completed = fromJSON["completed"].bool
+        takeable = false
     }
     
     func createLocalNotification() {

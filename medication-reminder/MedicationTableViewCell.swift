@@ -42,6 +42,33 @@ class MedicationTableViewCell: UITableViewCell {
         })
     }
     
+    //Returns true if UI changed else false
+    func updateCellUI() -> Bool {
+        guard let medication = medication else {
+            return false
+        }
+    
+        if medication.takeable {
+            //No changes
+            if statusImageView.isHidden && !takeButton.isHidden {
+                return false
+            }
+            statusImageView.isHidden = true
+            takeButton.isHidden = false
+        }
+        else {
+            //No changes
+            if !statusImageView.isHidden && takeButton.isHidden {
+                return false
+            }
+            statusImageView.isHidden = false
+            takeButton.isHidden = true
+        }
+        
+        return true
+        
+    }
+    
     func setupCell(medication: Medication, status: MedicationStatus) {
         
         self.medication = medication
@@ -75,6 +102,7 @@ class MedicationTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         takeButton.isHidden = true
+        takeButton.tintColor = Color.MavencareBlue
         
         medicationNameLabel.snp.makeConstraints { (make) -> Void in
             make.left.equalToSuperview().offset(8)
@@ -88,6 +116,11 @@ class MedicationTableViewCell: UITableViewCell {
         
         statusImageView.snp.makeConstraints { (make) -> Void in
             make.size.equalTo(CGSize(width: 30, height: 30))
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-10)
+        }
+        
+        takeButton.snp.makeConstraints { (make) -> Void in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-10)
         }
