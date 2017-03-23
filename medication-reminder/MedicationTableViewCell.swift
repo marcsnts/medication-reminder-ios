@@ -40,6 +40,7 @@ class MedicationTableViewCell: UITableViewCell {
         NetworkRequest.patchMedication(medicationId: id, params: body, successHandler: { (json) -> Void in
             medication.completed = true
             medication.missed = false
+            medication.takeable = false
         })
         
 

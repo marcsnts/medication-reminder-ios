@@ -48,19 +48,26 @@ class MedicationReminderViewController: UIViewController {
                         //only cells in upcoming section will ever update
                         if let completed = cell.medication?.completed {
                             if completed {
-                                self.tableView.moveRow(at: indexPath, to: IndexPath(row: self.tableView.numberOfRows(inSection: 2)-1, section: 2))
-                                self.completedMedicationsArray.insert(upcomingMedicationsArray.remove(at: indexPath.row), at: completedMedicationsArray.count-1)
+                                let targetRow = self.tableView.numberOfRows(inSection: 2) > 0 ? self.tableView.numberOfRows(inSection: 2)-1 : 0
+                                self.tableView.moveRow(at: indexPath, to: IndexPath(row: targetRow, section: 2))
+                                let targetIndex = completedMedicationsArray.count > 0 ? completedMedicationsArray.count-1 : 0
+                                self.completedMedicationsArray.insert(upcomingMedicationsArray.remove(at: indexPath.row), at: targetIndex)
+                                cell.setupCell(medication: cell.medication!, status: .completed)
                             }
                             else {
                                 if let missed = cell.medication?.missed {
                                     if missed {
-                                        self.tableView.moveRow(at: indexPath, to: IndexPath(row: self.tableView.numberOfRows(inSection: 1)-1, section: 1))
-                                        self.completedMedicationsArray.insert(upcomingMedicationsArray.remove(at: indexPath.row), at: missedMedicationsArray.count-1)
+                                        let targetRow = self.tableView.numberOfRows(inSection: 1) > 0 ? self.tableView.numberOfRows(inSection: 1)-1 : 0
+                                        self.tableView.moveRow(at: indexPath, to: IndexPath(row: targetRow, section: 1))
+                                        let targetIndex = missedMedicationsArray.count > 0 ? missedMedicationsArray.count-1 : 0
+                                        self.missedMedicationsArray.insert(upcomingMedicationsArray.remove(at: indexPath.row), at: targetIndex)
+                                        cell.setupCell(medication: cell.medication!, status: .missed)
+                                        print(self.missedMedicationsArray)
                                     }
                                 }
                             }
                         }
-                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                        //self.tableView.reloadRows(at: [indexPath], with: .automatic)
                         self.tableView.endUpdates()
                     }
                 }
@@ -97,11 +104,12 @@ class MedicationReminderViewController: UIViewController {
                         //Time exceeds 5 minutes
                         if now > time.addingTimeInterval(Double(60*5+Constants.REFRESH_ERROR_MARGIN)) {
                             medication.takeable = false
+                            medication.missed = true
                             Sound.play(type: .alarm, repeats: 10)
                         }
                     }
-                    refreshCells()
                 }
+                refreshCells()
             }
         }
     }
