@@ -63,16 +63,19 @@ class MedicationReminderViewController: UIViewController {
                 let newMedication = Medication(fromJSON: json[i])
                 newMedication.createLocalNotification()
                 
-                print(newMedication.time!.iso8601String)
 //                let swag = [
-//                    "m" : 
+//                    "m" : Date().iso8601String,
+//                    "c" : nil
 //                ]
 //                
-//                let testParams = [
+//                let testParams: [String:Any] = [
 //                    "completed" : true,
-//                
+//                    "d" : swag
 //                ]
-//                NetworkRequest.patchMedication(medicationId: newMedication.id!, params: , successHandler: <#T##(JSON) -> Void#>)
+//                
+//                NetworkRequest.patchMedication(medicationId: newMedication.id!, params: testParams, successHandler: { (json) -> Void in
+//                    newMedication.completed = true
+//                })
                 
                 
                 if let medTime = newMedication.time {

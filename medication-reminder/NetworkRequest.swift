@@ -32,10 +32,15 @@ class NetworkRequest {
 
         //Set header
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         if let data = data {
             do {
-                request.httpBody  = try JSONSerialization.data(withJSONObject: data, options: [])
+                if data.count > 1 {
+                    request.httpBody  = try JSONSerialization.data(withJSONObject: data, options: [])
+                }
+                else {
+                    request.httpBody  = try JSONSerialization.data(withJSONObject: data[0], options: [])
+                }
             }
             catch {
                 print("[ERROR]Could not serialize body to JSON")
@@ -49,7 +54,7 @@ class NetworkRequest {
                 print("[ERROR]Failed to encode request with query")
             }
         }
-        
+//        NSString(data: request.httpBody!, encoding: NSUTF8StringEncoding)
         return request
     }
     
