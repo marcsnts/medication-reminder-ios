@@ -45,6 +45,13 @@ class MedicationReminderViewController: UIViewController {
                 if cell.updateCellUI() {
                     if let indexPath = self.tableView.indexPath(for: cell) {
                         self.tableView.beginUpdates()
+                        //only cells in upcoming section will ever update
+                        if let completed = cell.medication?.completed {
+                            if completed {
+                                self.tableView.moveRow(at: indexPath, to: IndexPath(row: self.tableView.numberOfRows(inSection: 2)-1, section: 2))
+                                self.completedMedicationsArray.insert(upcomingMedicationsArray.remove(at: indexPath.row), at: completedMedicationsArray.count-1)
+                            }
+                        }
                         self.tableView.reloadRows(at: [indexPath], with: .automatic)
                         self.tableView.endUpdates()
                     }
@@ -68,7 +75,8 @@ class MedicationReminderViewController: UIViewController {
                     let now = Date()
                     if !medication.takeable {
                         //Not using exactly 5 minutes so we allow the app a small margin for error
-                        if now >= time.addingTimeInterval(Double(-1*60*4.9)) && now <= time.addingTimeInterval(Double(60*5.1)) {
+                        let fiveMin = Double(60*5+Constants.REFRESH_ERROR_MARGIN)
+                        if now >= time.addingTimeInterval(-1.00*fiveMin) && now <= time.addingTimeInterval(fiveMin) {
                             medication.takeable = true
                         }
                     }

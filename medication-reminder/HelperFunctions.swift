@@ -9,18 +9,10 @@
 import Foundation
 
 extension Date {
-    func isWithinFiveMinutes(otherDate: Date) -> Bool {
-        let fiveMins:Double = 60*5
-        
-        if self.addingTimeInterval(fiveMins) >= otherDate && self.addingTimeInterval(-1.00*fiveMins) <= otherDate {
-            return true
-        }
-        
-        return false
-    }
         
     var iso8601String: String {
         let df = DateFormatter()
+        df.timeZone = TimeZone(identifier: "UTC")
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
         return df.string(from: self)
     }
@@ -31,6 +23,7 @@ extension String {
 
     var iso8601Date: Date? {
         let df = DateFormatter()
+        df.timeZone = TimeZone(identifier: "UTC")
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
         return df.date(from: self)
     }

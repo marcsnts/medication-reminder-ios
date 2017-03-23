@@ -14,4 +14,6 @@ class Constants {
     //60*60*24 = 1 day
     static let END_DATE = Date(timeIntervalSinceNow: Double(60*60*24*5))
     
+    static let REFRESH_ERROR_MARGIN = 15
+    
 }

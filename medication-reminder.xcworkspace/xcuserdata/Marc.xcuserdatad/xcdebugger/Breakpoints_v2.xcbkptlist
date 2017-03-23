@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "medication-reminder/MedicationReminderViewController.swift"
-            timestampString = "511931363.579264"
+            filePath = "medication-reminder/MedicationTableViewCell.swift"
+            timestampString = "511934800.976195"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "refreshCells()"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "setupCell(medication:status:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,29 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "medication-reminder/MedicationReminderViewController.swift"
-            timestampString = "511931366.767571"
+            filePath = "medication-reminder/Medication.swift"
+            timestampString = "511934912.533515"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "checkUpcomingTimes()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "medication-reminder/MedicationReminderViewController.swift"
-            timestampString = "511931367.850329"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "checkUpcomingTimes()"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "init(fromJSON:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

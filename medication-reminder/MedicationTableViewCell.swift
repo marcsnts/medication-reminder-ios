@@ -30,7 +30,7 @@ class MedicationTableViewCell: UITableViewCell {
         
         let d = [
             "m" : Date().iso8601String,
-            "c" : nil
+            "f" : Date().iso8601String
         ]
         let body: [String:Any] = [
             "completed" : true,
@@ -39,7 +39,10 @@ class MedicationTableViewCell: UITableViewCell {
         
         NetworkRequest.patchMedication(medicationId: id, params: body, successHandler: { (json) -> Void in
             medication.completed = true
+            medication.missed = false
         })
+        
+
     }
     
     //Returns true if UI changed else false
@@ -96,12 +99,13 @@ class MedicationTableViewCell: UITableViewCell {
         medicationNameLabel.text = "\(medicationName) at \(df.string(from: medicationTime))"
         medicationDosageLabel.text = medicationDosage
         
+        _ = updateCellUI()
+        
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        takeButton.isHidden = true
         takeButton.tintColor = Color.MavencareBlue
         
         medicationNameLabel.snp.makeConstraints { (make) -> Void in
