@@ -1,0 +1,6 @@
+framework module Pods_medication_reminder {
+  umbrella header "Pods-medication-reminder-umbrella.h"
+
+  export *
+  module * { export * }
+}
