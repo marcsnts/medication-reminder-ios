@@ -51,6 +51,14 @@ class MedicationReminderViewController: UIViewController {
                                 self.tableView.moveRow(at: indexPath, to: IndexPath(row: self.tableView.numberOfRows(inSection: 2)-1, section: 2))
                                 self.completedMedicationsArray.insert(upcomingMedicationsArray.remove(at: indexPath.row), at: completedMedicationsArray.count-1)
                             }
+                            else {
+                                if let missed = cell.medication?.missed {
+                                    if missed {
+                                        self.tableView.moveRow(at: indexPath, to: IndexPath(row: self.tableView.numberOfRows(inSection: 1)-1, section: 1))
+                                        self.completedMedicationsArray.insert(upcomingMedicationsArray.remove(at: indexPath.row), at: missedMedicationsArray.count-1)
+                                    }
+                                }
+                            }
                         }
                         self.tableView.reloadRows(at: [indexPath], with: .automatic)
                         self.tableView.endUpdates()
@@ -81,10 +89,15 @@ class MedicationReminderViewController: UIViewController {
                         }
                     }
                     else {
+                        //It's medication time!!
+                        if now >= time.addingTimeInterval(-1.00*Constants.REFRESH_ERROR_MARGIN) && now <= time.addingTimeInterval(Constants.REFRESH_ERROR_MARGIN) {
+                            Sound.play(type: .chime, repeats: nil)
+                        }
+                        
                         //Time exceeds 5 minutes
-                        if now > time.addingTimeInterval(Double(60*5.1)) {
+                        if now > time.addingTimeInterval(Double(60*5+Constants.REFRESH_ERROR_MARGIN)) {
                             medication.takeable = false
-                            Sound.play(type: .alarm, repeats: 3)
+                            Sound.play(type: .alarm, repeats: 10)
                         }
                     }
                     refreshCells()

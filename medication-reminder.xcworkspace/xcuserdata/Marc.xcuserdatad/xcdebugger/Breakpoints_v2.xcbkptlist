@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "medication-reminder/MedicationTableViewCell.swift"
-            timestampString = "511934800.976195"
+            filePath = "medication-reminder/MedicationReminderViewController.swift"
+            timestampString = "511937109.220604"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "setupCell(medication:status:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "medication-reminder/Medication.swift"
-            timestampString = "511934912.533515"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "init(fromJSON:)"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "refreshCells()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
